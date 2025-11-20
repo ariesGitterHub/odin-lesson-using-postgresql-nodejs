@@ -1,0 +1,56 @@
+<!-- views/updateUser.ejs -->
+
+<!DOCTYPE html>
+<html>
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <h1><%= title %></h1>
+
+    <div class="outer-container">
+      <%- include("partials/errors.ejs") %>
+      <form
+        class="inner-container update-bg-color"
+        action="/<%= user.id %>/update"
+        method="POST"
+      >
+        <label for="firstName">Update First Name</label>
+        <input
+          type="text"
+          name="firstName"
+          value="<%= user.firstName %>"
+          required
+        />
+        <label for="lastName">Update Last Name</label>
+        <input
+          type="text"
+          name="lastName"
+          value="<%= user.lastName %>"
+          required
+        />
+        <label for="email">Update Email</label>
+        <input 
+          type="email" 
+          name="email" 
+          value="<%= user.email %>" 
+          required 
+        />
+        <label for="age">Update Age</label>
+        <input 
+          type="number" 
+          name="age" 
+          value="<%= user.age %>" 
+        />
+        <label for="bio">Update Bio</label>
+        <textarea 
+          name="bio" 
+        ><%= user.bio %></textarea>
+        <div class="inner-controls">
+          <button type="submit">Update User</button>
+        </div>
+      </form>
+      <div class="outer-controls">
+        <a href="/">Back to home</a>
+      </div>
+    </div>
+  </body>
+</html>

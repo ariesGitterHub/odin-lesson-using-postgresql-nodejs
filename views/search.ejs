@@ -1,0 +1,97 @@
+<!-- views/createUser.ejs -->
+
+<!DOCTYPE html>
+<html>
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <h1><%= title %></h1>
+    <div class="outer-container">
+      <div class="search-directions">
+        Search using first or last name, email, or any combination of the three
+      </div>
+      <form
+        class="inner-container search-bg-color"
+        action="/search"
+        method="GET"
+      >
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          name="firstName"
+          id="firstName"
+          placeholder="Enter a first name to search"
+        />
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          name="lastName"
+          id="lastName"
+          placeholder="Enter a last name to search"
+        />
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Enter an email to search"
+        />
+        <div class="inner-controls">
+          <button type="submit">Search</button>
+        </div>
+      </form>
+      <div class="outer-controls">
+        <a href="/">Back to home</a>
+      </div>
+      <!-- SEARCH RESULTS HERE!!! -->
+
+<div class="search-results-container">
+
+  <% if (!q.firstName && !q.lastName && !q.email) { %>
+
+    <!-- No search yet -->
+    <p>Please begin a search above...</p>
+
+  <% } else if (users && users.length > 0) { %>
+
+    <!-- Search has results -->
+    <h2 class="search-results-title">Search Results...</h2>
+
+    <div class="search-results">
+      <% users.forEach(user => { %>
+        <p class="name-result"><%= user.firstName %> <%= user.lastName %></p>
+        <p class="email-result">&#11046; Email: <%= user.email %></p>
+
+        <% if (user.age) { %>
+          <p class="age-result">&#11046; Age: <%= user.age %></p>
+        <% } %>
+
+        <% if (user.bio) { %>
+          <p class="bio-result">Bio: <%= user.bio %></p>
+        <% } %>
+
+        <hr />
+      <% }) %>
+    </div>
+
+  <% } else { %>
+
+    <% 
+      // Build a summary string of all search criteria
+      const querySummary = [
+        q.firstName ? `First Name: ${q.firstName}` : null,
+        q.lastName ? `Last Name: ${q.lastName}` : null,
+        q.email ? `Email: ${q.email}` : null
+      ].filter(Boolean).join(" AND ");
+    %>
+
+    <!-- Search performed but no results -->
+    <p class="no-results" >No users found for "<%= querySummary %>"</p>
+
+  <% } %>
+
+</div>
+
+      
+    </div>
+  </body>
+</html>
