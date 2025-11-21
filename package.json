@@ -18,9 +18,11 @@
   },
   "homepage": "https://github.com/ariesGitterHub/odin-lesson-forms-and-data-handling-nodejs#readme",
   "dependencies": {
+    "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-validator": "^7.3.1",
-    "nodemon": "^3.1.11"
+    "nodemon": "^3.1.11",
+    "pg": "^8.16.3"
   }
 }

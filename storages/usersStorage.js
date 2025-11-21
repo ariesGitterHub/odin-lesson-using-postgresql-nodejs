@@ -5,12 +5,12 @@
 class UsersStorage {
   constructor() {
     this.storage = {};
-    this.id = 0 + 1;
+    this.id = 1;
   }
 
-  addUser({ firstName, lastName, email, age, bio }) {
+  addUser({ username, firstName, lastName, email, age, bio }) {
     const id = this.id;
-    this.storage[id] = { id, firstName, lastName, email, age, bio };
+    this.storage[id] = { id, username, firstName, lastName, email, age, bio };
     this.id++;
   }
 
@@ -22,18 +22,8 @@ class UsersStorage {
     return this.storage[id];
   }
 
-  // searchUsers(query) {
-  //   const q = query.toLowerCase();
-  //   return Object.values(this.storage).filter(
-  //     (user) =>
-  //       user.firstName.toLowerCase().includes(q) ||
-  //       user.lastName.toLowerCase().includes(q) ||
-  //       user.email.toLowerCase().includes(q)
-  //   );
-  // }
-
-  updateUser(id, { firstName, lastName, email, age, bio }) {
-    this.storage[id] = { id, firstName, lastName, email, age, bio };
+  updateUser(id, { username, firstName, lastName, email, age, bio }) {
+    this.storage[id] = { id, username, firstName, lastName, email, age, bio };
   }
 
   deleteUser(id) {

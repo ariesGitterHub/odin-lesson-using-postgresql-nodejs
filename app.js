@@ -1,6 +1,7 @@
 // app.js
 
 // Most simple forms will use the Content-Type: application/x-www-form-urlencoded HTTP header when sending data to the server. Express, however, can’t natively parse that data. We can use the express.urlencoded() middleware to handle this for us and automatically set form’s data to the req.body field. When extended is false, our server will only accept a string or an array of data, so we set it to true for some added flexibility. Note that if the Content-Type doesn’t match application/x-www-form-urlencoded, then your server will show the data as an empty object {}.
+require('dotenv').config(); // Load environment variables
 
 // --- 1. Imports (at the very top) ---
 const express = require("express");

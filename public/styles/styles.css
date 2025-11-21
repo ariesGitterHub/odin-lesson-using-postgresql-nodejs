@@ -185,8 +185,8 @@ ul {
   height: fit-content;
   width: 400px;
   color: var(--text-color);
-  font-family: var(--font-title);
-  font-size: 1.125rem;
+  font-family: var(--font-text);
+  font-size: 1rem;
   margin: 0.25rem;
   text-align: center;
   text-transform: uppercase;
@@ -218,7 +218,7 @@ ul {
   word-break: break-word; /* extra robustness */
 }
 
-.name-result {
+.username-result {
   color: var(--hover-color);
   font-weight: 600;
 }

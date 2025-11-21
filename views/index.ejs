@@ -8,7 +8,9 @@
       <div class="inner-container">
         <div class="user-details-list">
           <p>ID#: <%= user.id %></p>
-          <p>Name: <%= user.firstName %> <%= user.lastName %></p>
+          <p>Username: <%= user.username %></p>
+          <!-- <p>Name: <%= user.firstName %> <%= user.lastName %></p> -->
+          <p>Name: <%= user.firstname %> <%= user.lastname %></p>
           <p>Email: <%= user.email %></p>
           <% if (user.age) { %>
             <p>Age: <%= user.age %></p>

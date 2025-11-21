@@ -22,3 +22,13 @@
         <p>No users found for "<%= q.firstName || q.lastName || q.email %>"</p>
         <% } %>
       </div>
+
+      CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(255) NOT NULL,
+  firstName VARCHAR(255),
+  lastName VARCHAR(255),
+  email VARCHAR(255),
+  age INTEGER,
+  bio TEXT
+);

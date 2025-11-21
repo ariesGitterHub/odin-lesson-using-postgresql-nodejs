@@ -7,13 +7,20 @@
     <h1><%= title %></h1>
     <div class="outer-container">
       <div class="search-directions">
-        Search using first or last name, email, or any combination of the three
+        Search via username, first or last name, email, or any combination of the four
       </div>
       <form
         class="inner-container search-bg-color"
         action="/search"
         method="GET"
       >
+        <label for="username">Username</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Enter a username to search"
+        />
         <label for="firstName">First Name</label>
         <input
           type="text"
@@ -46,7 +53,8 @@
 
 <div class="search-results-container">
 
-  <% if (!q.firstName && !q.lastName && !q.email) { %>
+  <!-- <% if (!q.username && !q.firstName && !q.lastName && !q.email) { %> -->
+  <% if (!q.username && !q.firstname && !q.lastname && !q.email) { %>
 
     <!-- No search yet -->
     <p>Please begin a search above...</p>
@@ -58,7 +66,9 @@
 
     <div class="search-results">
       <% users.forEach(user => { %>
-        <p class="name-result"><%= user.firstName %> <%= user.lastName %></p>
+        <p class="username-result"><%= user.username %></p>
+        <!-- <p class="name-result">(<%= user.firstName %> <%= user.lastName %>)</p> -->
+        <p class="name-result">(<%= user.firstname %> <%= user.lastname %>)</p>
         <p class="email-result">&#11046; Email: <%= user.email %></p>
 
         <% if (user.age) { %>
