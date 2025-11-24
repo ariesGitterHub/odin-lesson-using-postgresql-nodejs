@@ -1,4 +1,5 @@
-// storages/usersStorage.js
+// NOTE - THIS IS NO LONGER BEING USED, BUT KEEP FOR REFERENCE; SWITCHED TO POSTGRESQL DB (see db folder!), ALL firstName and lastName are now firstname and lastname to comply with lowercase in the postgreSQL db. 
+
 // This class lets us simulate interacting with a database.
 // And we’ll use a storage class to hold the users we create. In real-world scenarios, you would almost certainly be using a database for this, which you’ll explore further in upcoming lessons. This class is just for demonstration purposes before we get there.
 

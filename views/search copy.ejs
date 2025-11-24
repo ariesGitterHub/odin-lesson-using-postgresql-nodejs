@@ -7,7 +7,8 @@
     <h1><%= title %></h1>
     <div class="outer-container">
       <div class="search-directions">
-        Search via username, first or last name, email, or any combination of the four
+        Search via username, first or last name, email, or any combination of
+        the four
       </div>
       <form
         class="inner-container search-bg-color"
@@ -65,39 +66,58 @@
       </div>
       <!-- SEARCH RESULTS HERE!!! -->
 
-<div class="search-results-container">
+      <!-- OLD CODE BELOW - KEEP FOR REFERENCE!!!! -->
+      <div class="search-results-container">
+        <%# if (!q.username && !q.firstName && !q.lastName && !q.email) { %> <%
+        if (!q.username && !q.firstname && !q.lastname && !q.email) { %>
 
-  <% if (noInput) { %>
-    <!-- No search input yet -->
-    <p>Please begin a search above...</p>
+        <!-- No search yet -->
+        <p>Please begin a search above...</p>
 
-  <% } else if (users.length > 0) { %>
-    <!-- Search has results -->
-    <h2 class="search-results-title">Search Results...</h2>
-    <div class="search-results">
-      <% users.forEach(user => { %>
-        <p class="username-result"><%= user.username %></p>
-        <p class="name-result">(<%= user.firstname %> <%= user.lastname %>)</p>
-        <p class="email-result">&#11046; Email: <%= user.email %></p>
-        <% if (user.age) { %>
+        <% } else if (users && users.length > 0) { %>
+
+        <!-- Search has results -->
+        <h2 class="search-results-title">Search Results...</h2>
+
+        <div class="search-results">
+          <% users.forEach(user => { %>
+          <p class="username-result"><%= user.username %></p>
+          <!-- <p class="name-result">(<%#= user.firstName %> <%#= user.lastName %>)</p> -->
+          <p class="name-result">
+            (<%= user.firstname %> <%= user.lastname %>)
+          </p>
+          <p class="email-result">&#11046; Email: <%= user.email %></p>
+
+          <% if (user.age) { %>
           <p class="age-result">&#11046; Age: <%= user.age %></p>
-        <% } %>
-        <% if (user.bio) { %>
+          <% } %> <% if (user.bio) { %>
           <p class="bio-result">Bio: <%= user.bio %></p>
+          <% } %>
+
+          <hr />
+          <% }) %>
+        </div>
+
+        <% } else { %>
+
+        <!-- <% 
+      // Build a summary string of all search criteria
+      const querySummary = [
+        q.firstName ? `First Name: ${q.firstName}` : null,
+        q.lastName ? `Last Name: ${q.lastName}` : null,
+        q.email ? `Email: ${q.email}` : null
+      ].filter(Boolean).join(" AND ");
+    %> -->
+        <% // Build a summary string of all search criteria const querySummary =
+        [ q.firstname ? `First Name: ${q.firstname}` : null, q.lastname ? `Last
+        Name: ${q.lastname}` : null, q.email ? `Email: ${q.email}` : null
+        ].filter(Boolean).join(" AND "); %>
+
+        <!-- Search performed but no results -->
+        <p class="no-results">No users found for "<%= querySummary %>"</p>
+
         <% } %>
-        <hr />
-      <% }) %>
-    </div>
-
-  <% } else { %>
-    <!-- Search performed but no results -->
-    <p class="no-results">No users found for "<%= summary %>"</p>
-  <% } %>
-
-</div>
-
-
-      
+      </div>
     </div>
   </body>
 </html>

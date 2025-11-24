@@ -1,4 +1,4 @@
-// controllers/usersController.js
+// THIS FILE IS FOR BUSINESS LOGIC AND
 
 // Let’s add a few methods to our usersController.js for validating and sanitizing our form to get the type of data we want. From *HERE*
 const { body, validationResult, matchedData } = require("express-validator");
@@ -6,12 +6,13 @@ const { body, validationResult, matchedData } = require("express-validator");
 
 // const usersStorage = require("../storages/usersStorage");
 
-const { 
+const {
   addUser,
   getUsers,
   getUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  searchUsers,
 } = require("../db/queries");
 
 // Title variables
@@ -121,40 +122,101 @@ exports.usersListGet = async (req, res) => {
 
 // --- Create user (GET) ---
 
+
+// NOTE/WARNING - Using JS for search code gets expensive as it scales, it works but is not ideal...
+// REPLACE THIS...
+// exports.usersSearchGet = async (req, res) => {
+//   const {
+//     username = "",
+//     // firstName = "",
+//     // lastName = "",
+//     firstname = "",
+//     lastname = "",
+//     email = "",
+//   } = req.query;
+
+//   const u = username.toLowerCase();
+//   // const f = firstName.toLowerCase();
+//   // const l = lastName.toLowerCase();
+//   const f = firstname.toLowerCase();
+//   const l = lastname.toLowerCase();
+//   const e = email.toLowerCase();
+
+//   const users = await getUsers(); // now users is an array
+
+//   const filtered = users.filter((user) => {
+//     const matchUser = u && user.username.toLowerCase().includes(u);
+//     const matchFirst = f && user.firstname.toLowerCase().includes(f);
+//     const matchLast = l && user.lastname.toLowerCase().includes(l);
+//     const matchEmail = e && user.email.toLowerCase().includes(e);
+//     return matchUser || matchFirst || matchLast || matchEmail;
+//   });
+
+//   res.render("search", {
+//     title: userSearchTitle,
+//     users: filtered,
+//     // q: { username, firstName, lastName, email },
+//     q: { username, firstname, lastname, email },
+//   });
+// };
+
+// with this better code...
+// exports.usersSearchGet = async (req, res) => {
+//   const {
+//     username = "",
+//     firstname = "",
+//     lastname = "",
+//     email = "",
+//   } = req.query;
+
+//   const users = await searchUsers({ username, firstname, lastname, email });
+
+//   res.render("search", {
+//     title: userSearchTitle,
+//     users,
+//     q: { username, firstname, lastname, email },
+//   });
+// };
+
 exports.usersSearchGet = async (req, res) => {
   const {
     username = "",
-    // firstName = "",
-    // lastName = "",
     firstname = "",
     lastname = "",
     email = "",
   } = req.query;
 
-  const u = username.toLowerCase();
-  // const f = firstName.toLowerCase();
-  // const l = lastName.toLowerCase();
-  const f = firstname.toLowerCase();
-  const l = lastname.toLowerCase();
-  const e = email.toLowerCase();
+  const noInput =
+    !username.trim() && !firstname.trim() && !lastname.trim() && !email.trim();
 
-  const users = await getUsers(); // now users is an array
+  let users = [];
 
-  const filtered = users.filter((user) => {
-    const matchUser = u && user.username.toLowerCase().includes(u);
-    const matchFirst = f && user.firstname.toLowerCase().includes(f);
-    const matchLast = l && user.lastname.toLowerCase().includes(l);
-    const matchEmail = e && user.email.toLowerCase().includes(e);
-    return matchUser || matchFirst || matchLast || matchEmail;
-  });
+  if (!noInput) {
+    // Only run SQL if the user typed something
+    users = await searchUsers({ username, firstname, lastname, email });
+  }
+
+  // Build summary string for "No users found for..."
+  const buildSummary = ({ username, firstname, lastname, email }) => {
+    const parts = [];
+    if (username) parts.push(`Username: ${username}`);
+    if (firstname) parts.push(`First Name: ${firstname}`);
+    if (lastname) parts.push(`Last Name: ${lastname}`);
+    if (email) parts.push(`Email: ${email}`);
+    return parts.join(" AND ");
+  };
+
+  const summary = buildSummary({ username, firstname, lastname, email });
 
   res.render("search", {
     title: userSearchTitle,
-    users: filtered,
-    // q: { username, firstName, lastName, email },
+    users,
     q: { username, firstname, lastname, email },
+    noInput,
+    summary,
   });
 };
+
 
 
 // NO CHANGES! This controller does not access the database. It just renders a form page. No database calls = no await needed = does NOT need to be async.
@@ -196,7 +258,7 @@ exports.usersCreatePost = [
     }
 
     // const { username, firstName, lastName, email, age, bio } = matchedData(req);
-
+    
     // await addUser({ username, firstName, lastName, email, age, bio });
 
     const { username, firstname, lastname, email, age, bio } = matchedData(req);
@@ -206,7 +268,6 @@ exports.usersCreatePost = [
     res.redirect("/");
   },
 ];
-
 
 // --- Update user (GET) ---
 // exports.usersUpdateGet = (req, res) => {
@@ -282,7 +343,6 @@ exports.usersUpdatePost = [
     res.redirect("/");
   },
 ];
-
 
 // --- Delete user ---
 // Tell the server to delete a matching user, if any. Otherwise, respond with an error.

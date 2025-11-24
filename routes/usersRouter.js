@@ -1,4 +1,4 @@
-// routes/usersRouter.js
+// THIS CODE SHOULD ONLY BE USED TO MAP URLS TO CONTROLLER METHODS
 
 const { Router } = require("express");
 const usersController = require("../controllers/usersController");

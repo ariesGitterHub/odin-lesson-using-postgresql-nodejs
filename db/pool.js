@@ -62,8 +62,8 @@ module.exports = new Pool({
 
 // // Again, this should be read from an environment variable
 // module.exports = new Pool({
-//   connectionString:
-//     "postgresql://process.env.PG_USER:process.env.PG_PASSWORD:Number(process.env.PG_PORT)/process.env.PG_DATABASE",
+//  connectionString: 
+//    `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`,
 // });
 
 // ! I guess below could be moved to db/queries.js ...
