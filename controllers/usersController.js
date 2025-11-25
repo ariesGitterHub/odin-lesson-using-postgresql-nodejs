@@ -1,4 +1,4 @@
-// THIS FILE IS FOR BUSINESS LOGIC AND
+// THIS FILE IS FOR BUSINESS LOGIC AND RENDERING
 
 // Let’s add a few methods to our usersController.js for validating and sanitizing our form to get the type of data we want. From *HERE*
 const { body, validationResult, matchedData } = require("express-validator");

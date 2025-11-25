@@ -1,3 +1,5 @@
+// POOL MANAGES YOUR CONNECTIONS 
+
 require("dotenv").config(); // Load environment variables
 
 // Below is the "Client — a single, manual connection"; Think of Client as booking a single table at a restaurant every time you eat.
